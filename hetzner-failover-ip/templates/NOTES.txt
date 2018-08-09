@@ -28,7 +28,7 @@ If you have troubles try `kubectl logs kube-keepalived-vip-XXXX` or dig into the
   export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "hetzner-failover-ip.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
   Deployed as LoadBalancer
   echo http://$SERVICE_IP:{{ .Values.service.port }}
-{{- else if contains "ClusterIP" .Values.service.type }}
+{{- else if contains "ClusterIP" .Values.serviceType }}
   Deployed as ClusterIP
   export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app={{ template "hetzner-failover-ip.name" . }},release={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
   echo "Visit http://127.0.0.1:8080 to use your application"
